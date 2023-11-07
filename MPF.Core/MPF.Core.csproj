@@ -5,7 +5,7 @@
     <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
     <Authors>Matt Nadareski;ReignStumble;Jakz</Authors>
     <Copyright>Copyright (c)2019-2023</Copyright>
-    <VersionPrefix>2.7.5</VersionPrefix>
+    <VersionPrefix>2.7.6</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>

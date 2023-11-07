@@ -743,6 +743,7 @@ namespace MPF.Core.UI.ViewModels
         public string CreateAboutText()
         {
             string aboutText = $"Media Preservation Frontend (MPF)"
+                + $"{Environment.NewLine}Legacy Edition"
                 + $"{Environment.NewLine}"
                 + $"{Environment.NewLine}A community preservation frontend developed in C#."
                 + $"{Environment.NewLine}Supports Redumper, Aaru, and DiscImageCreator."

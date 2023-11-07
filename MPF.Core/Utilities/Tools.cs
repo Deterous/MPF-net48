@@ -243,7 +243,7 @@ namespace MPF.Core.Utilities
                 wc.Headers["User-Agent"] = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:64.0) Gecko/20100101 Firefox/64.0";
 
                 // TODO: Figure out a better way than having this hardcoded...
-                string url = "https://api.github.com/repos/SabreTools/MPF/releases/latest";
+                string url = "https://api.github.com/repos/Deterous/MPF-Legacy/releases/latest";
                 string latestReleaseJsonString = wc.DownloadString(url);
                 var latestReleaseJson = JObject.Parse(latestReleaseJsonString);
                 string latestTag = latestReleaseJson["tag_name"].ToString();
