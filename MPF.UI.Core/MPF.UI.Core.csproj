@@ -1,17 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>net48;net6.0-windows;net7.0-windows</TargetFrameworks>
-    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <TargetFramework>net48</TargetFramework>
+    <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <Authors>Matt Nadareski;ReignStumble;Jakz</Authors>
     <Copyright>Copyright (c)2019-2023</Copyright>
     <VersionPrefix>2.7.5</VersionPrefix>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'!='net48'">
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +19,7 @@
     <ProjectReference Include="..\MPF.Core\MPF.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
+  <ItemGroup>
     <Reference Include="PresentationFramework.Aero" />
   </ItemGroup>
 

@@ -12,11 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D1DCF5A-F0B0-4E81-A05B-F1A7D37C9D9D}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
-		CHANGELIST.md = CHANGELIST.md
-		.github\ISSUE_TEMPLATE\feature-request.md = .github\ISSUE_TEMPLATE\feature-request.md
-		.github\ISSUE_TEMPLATE\informational.md = .github\ISSUE_TEMPLATE\informational.md
-		.github\ISSUE_TEMPLATE\issue-report.md = .github\ISSUE_TEMPLATE\issue-report.md
-		publish-nix.sh = publish-nix.sh
 		publish-win.bat = publish-win.bat
 		README.md = README.md
 	EndProjectSection
@@ -25,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPF.Core", "MPF.Core\MPF.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPF.UI.Core", "MPF.UI.Core\MPF.UI.Core.csproj", "{EA3768DB-694A-4653-82E4-9FF71B8963F3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MPF", "MPF", "{4160167D-681D-480B-ABC6-06AC869E5769}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MPF-Legacy", "MPF-Legacy", "{4160167D-681D-480B-ABC6-06AC869E5769}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

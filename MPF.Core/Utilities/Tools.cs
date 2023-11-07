@@ -84,7 +84,6 @@ namespace MPF.Core.Utilities
                 return Result.Failure("Please select a valid system");
 
             // If we're on an unsupported type, update the status accordingly
-#if NET48
             switch (type)
             {
                 // Fully supported types
@@ -117,35 +116,6 @@ namespace MPF.Core.Utilities
                 default:
                     return Result.Failure($"{type.LongName()} media are not supported for dumping");
             }
-#else
-            return type switch
-            {
-                // Fully supported types
-                MediaType.BluRay
-                    or MediaType.CDROM
-                    or MediaType.DVD
-                    or MediaType.FloppyDisk
-                    or MediaType.HardDisk
-                    or MediaType.CompactFlash
-                    or MediaType.SDCard
-                    or MediaType.FlashDrive
-                    or MediaType.HDDVD => Result.Success($"{type.LongName()} ready to dump"),
-
-                // Partially supported types
-                MediaType.GDROM
-                    or MediaType.NintendoGameCubeGameDisc
-                    or MediaType.NintendoWiiOpticalDisc => Result.Success($"{type.LongName()} partially supported for dumping"),
-
-                // Special case for other supported tools
-                MediaType.UMD => Result.Failure($"{type.LongName()} supported for submission info parsing"),
-
-                // Specifically unknown type
-                MediaType.NONE => Result.Failure($"Please select a valid media type"),
-
-                // Undumpable but recognized types
-                _ => Result.Failure($"{type.LongName()} media are not supported for dumping"),
-            };
-#endif
         }
         
         /// <summary>
@@ -157,7 +127,6 @@ namespace MPF.Core.Utilities
             if (type == null || type == MediaType.NONE)
                 return false;
 
-#if NET48
             switch (program)
             {
                 case InternalProgram.Redumper:
@@ -201,48 +170,6 @@ namespace MPF.Core.Utilities
                 default:
                     return false;
             }
-#else
-            return (program) switch
-            {
-                // Aaru
-                InternalProgram.Aaru when type == MediaType.BluRay => true,
-                InternalProgram.Aaru when type == MediaType.CDROM => true,
-                InternalProgram.Aaru when type == MediaType.CompactFlash => true,
-                InternalProgram.Aaru when type == MediaType.DVD => true,
-                InternalProgram.Aaru when type == MediaType.GDROM => true,
-                InternalProgram.Aaru when type == MediaType.FlashDrive => true,
-                InternalProgram.Aaru when type == MediaType.FloppyDisk => true,
-                InternalProgram.Aaru when type == MediaType.HardDisk => true,
-                InternalProgram.Aaru when type == MediaType.HDDVD => true,
-                InternalProgram.Aaru when type == MediaType.NintendoGameCubeGameDisc => true,
-                InternalProgram.Aaru when type == MediaType.NintendoWiiOpticalDisc => true,
-                InternalProgram.Aaru when type == MediaType.SDCard => true,
-
-                // DiscImageCreator
-                InternalProgram.DiscImageCreator when type == MediaType.BluRay => true,
-                InternalProgram.DiscImageCreator when type == MediaType.CDROM => true,
-                InternalProgram.DiscImageCreator when type == MediaType.CompactFlash => true,
-                InternalProgram.DiscImageCreator when type == MediaType.DVD => true,
-                InternalProgram.DiscImageCreator when type == MediaType.GDROM => true,
-                InternalProgram.DiscImageCreator when type == MediaType.FlashDrive => true,
-                InternalProgram.DiscImageCreator when type == MediaType.FloppyDisk => true,
-                InternalProgram.DiscImageCreator when type == MediaType.HardDisk => true,
-                InternalProgram.DiscImageCreator when type == MediaType.HDDVD => true,
-                InternalProgram.DiscImageCreator when type == MediaType.NintendoGameCubeGameDisc => true,
-                InternalProgram.DiscImageCreator when type == MediaType.NintendoWiiOpticalDisc => true,
-                InternalProgram.DiscImageCreator when type == MediaType.SDCard => true,
-
-                // Redumper
-                InternalProgram.Redumper when type == MediaType.BluRay => true,
-                InternalProgram.Redumper when type == MediaType.CDROM => true,
-                InternalProgram.Redumper when type == MediaType.DVD => true,
-                InternalProgram.Redumper when type == MediaType.GDROM => true,
-                InternalProgram.Redumper when type == MediaType.HDDVD => true,
-
-                // Default
-                _ => false,
-            };
-#endif
         }
 
         #endregion
@@ -257,11 +184,7 @@ namespace MPF.Core.Utilities
         /// String representing the message to display the the user.
         /// String representing the new release URL.
         /// </returns>
-#if NET48
         public static (bool different, string message, string url) CheckForNewVersion()
-#else
-        public static (bool different, string message, string? url) CheckForNewVersion()
-#endif
         {
             try
             {
@@ -293,11 +216,7 @@ namespace MPF.Core.Utilities
         /// <summary>
         /// Get the current informational version formatted as a string
         /// </summary>
-#if NET48
         public static string GetCurrentVersion()
-#else
-        public static string? GetCurrentVersion()
-#endif
         {
             try
             {
@@ -317,13 +236,8 @@ namespace MPF.Core.Utilities
         /// <summary>
         /// Get the latest version of MPF from GitHub and the release URL
         /// </summary>
-#if NET48
         private static (string tag, string url) GetRemoteVersionAndUrl()
-#else
-        private static (string? tag, string? url) GetRemoteVersionAndUrl()
-#endif
         {
-#if NET48
             using (var wc = new System.Net.WebClient())
             {
                 wc.Headers["User-Agent"] = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:64.0) Gecko/20100101 Firefox/64.0";
@@ -337,27 +251,6 @@ namespace MPF.Core.Utilities
 
                 return (latestTag, releaseUrl);
             }
-#else
-            using (var hc = new System.Net.Http.HttpClient())
-            {
-                // TODO: Figure out a better way than having this hardcoded...
-                string url = "https://api.github.com/repos/SabreTools/MPF/releases/latest";
-                var message = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url);
-                message.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:64.0) Gecko/20100101 Firefox/64.0");
-                var latestReleaseJsonString = hc.Send(message)?.Content?.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-                if (latestReleaseJsonString == null)
-                    return (null, null);
-
-                var latestReleaseJson = JObject.Parse(latestReleaseJsonString);
-                if (latestReleaseJson == null)
-                    return (null, null);
-
-                var latestTag = latestReleaseJson["tag_name"]?.ToString();
-                var releaseUrl = latestReleaseJson["html_url"]?.ToString();
-
-                return (latestTag, releaseUrl);
-            }
-#endif
         }
 
         #endregion

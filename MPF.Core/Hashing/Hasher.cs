@@ -16,24 +16,15 @@ namespace MPF.Core.Hashing
         /// <summary>
         /// Hash type associated with the current state
         /// </summary>
-#if NET48
         public Hash HashType { get; private set; }
-#else
-        public Hash HashType { get; init; }
-#endif
 
         /// <summary>
         /// Current hash in bytes
         /// </summary>
-#if NET48
         public byte[] CurrentHashBytes
-#else
-        public byte[]? CurrentHashBytes
-#endif
         {
             get
             {
-#if NET48
                 switch (_hasher)
                 {
                     case HashAlgorithm ha:
@@ -43,25 +34,13 @@ namespace MPF.Core.Hashing
                     default:
                         return null;
                 }
-#else
-                return (_hasher) switch
-                {
-                    HashAlgorithm ha => ha.Hash,
-                    NonCryptographicHashAlgorithm ncha => ncha.GetCurrentHash().Reverse().ToArray(),
-                    _ => null,
-                };
-#endif
             }
         }
 
         /// <summary>
         /// Current hash as a string
         /// </summary>
-#if NET48
         public string CurrentHashString => ByteArrayToString(CurrentHashBytes);
-#else
-        public string? CurrentHashString => ByteArrayToString(CurrentHashBytes);
-#endif
 
         #endregion
 
@@ -71,11 +50,7 @@ namespace MPF.Core.Hashing
         /// Internal hasher being used for processing
         /// </summary>
         /// <remarks>May be either a HashAlgorithm or NonCryptographicHashAlgorithm</remarks>
-#if NET48
         private object _hasher;
-#else
-        private object? _hasher;
-#endif
 
         #endregion
 
@@ -96,7 +71,6 @@ namespace MPF.Core.Hashing
         /// </summary>
         private void GetHasher()
         {
-#if NET48
             switch (HashType)
             {
                 case Hash.CRC32:
@@ -127,21 +101,6 @@ namespace MPF.Core.Hashing
                     _hasher = new XxHash64();
                     break;
             }
-#else
-            _hasher = HashType switch
-            {
-                Hash.CRC32 => new Crc32(),
-                Hash.CRC64 => new Crc64(),
-                Hash.MD5 => MD5.Create(),
-                Hash.SHA1 => SHA1.Create(),
-                Hash.SHA256 => SHA256.Create(),
-                Hash.SHA384 => SHA384.Create(),
-                Hash.SHA512 => SHA512.Create(),
-                Hash.XxHash32 => new XxHash32(),
-                Hash.XxHash64 => new XxHash64(),
-                _ => null,
-            };
-#endif
         }
 
         /// <inheritdoc/>
@@ -160,11 +119,7 @@ namespace MPF.Core.Hashing
         /// </summary>
         /// <param name="filename">Path to the input file</param>
         /// <returns>True if hashing was successful, false otherwise</returns>
-#if NET48
         public static bool GetFileHashes(string filename, out long size, out string crc32, out string md5, out string sha1)
-#else
-        public static bool GetFileHashes(string filename, out long size, out string? crc32, out string? md5, out string? sha1)
-#endif
         {
             // Set all initial values
             crc32 = null; md5 = null; sha1 = null;
@@ -186,11 +141,7 @@ namespace MPF.Core.Hashing
         /// </summary>
         /// <param name="filename">Path to the input file</param>
         /// <returns>Dictionary containing hashes on success, null on error</returns>
-#if NET48
         public static Dictionary<Hash, string> GetFileHashes(string filename, out long size)
-#else
-        public static Dictionary<Hash, string?>? GetFileHashes(string filename, out long size)
-#endif
         {
             // If the file doesn't exist, we can't do anything
             if (!File.Exists(filename))
@@ -203,11 +154,7 @@ namespace MPF.Core.Hashing
             size = new FileInfo(filename).Length;
 
             // Create the output dictionary
-#if NET48
             var hashDict = new Dictionary<Hash, string>();
-#else
-            var hashDict = new Dictionary<Hash, string?>();
-#endif
 
             // Open the input file
             var input = File.OpenRead(filename);
@@ -221,18 +168,10 @@ namespace MPF.Core.Hashing
         /// </summary>
         /// <param name="input">Stream to hash</param>
         /// <returns>Dictionary containing hashes on success, null on error</returns>
-#if NET48
         public static Dictionary<Hash, string> GetStreamHashes(Stream input)
-#else
-        public static Dictionary<Hash, string?>? GetStreamHashes(Stream input)
-#endif
         {
             // Create the output dictionary
-#if NET48
             var hashDict = new Dictionary<Hash, string>();
-#else
-            var hashDict = new Dictionary<Hash, string?>();
-#endif
 
             try
             {
@@ -375,11 +314,7 @@ namespace MPF.Core.Hashing
         /// <param name="bytes">Byte array to convert</param>
         /// <returns>Hex string representing the byte array</returns>
         /// <link>http://stackoverflow.com/questions/311165/how-do-you-convert-byte-array-to-hexadecimal-string-and-vice-versa</link>
-#if NET48
         private static string ByteArrayToString(byte[] bytes)
-#else
-        private static string? ByteArrayToString(byte[]? bytes)
-#endif
         {
             // If we get null in, we send null out
             if (bytes == null)

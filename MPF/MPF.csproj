@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>net48;net6.0-windows;net7.0-windows</TargetFrameworks>
-    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <TargetFramework>net48</TargetFramework>
+    <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
     <OutputType>WinExe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
@@ -15,10 +15,6 @@
     <InternalsVisibleTo>MPF.Test</InternalsVisibleTo>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'!='net48'">
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
   <ItemGroup>
     <Resource Include="Images\Icon.ico" />
   </ItemGroup>
@@ -28,7 +24,7 @@
     <ProjectReference Include="..\MPF.UI.Core\MPF.UI.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
+  <ItemGroup>
     <Reference Include="PresentationFramework.Aero" />
   </ItemGroup>
 
