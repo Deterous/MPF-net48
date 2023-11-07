@@ -24,15 +24,11 @@ REM .NET Framework 4.8 Debug
 echo Building .NET Framework 4.8 debug
 dotnet publish MPF\MPF.csproj -f net48 -r win-x86 -c Debug --self-contained true --version-suffix %COMMIT%
 dotnet publish MPF\MPF.csproj -f net48 -r win-x64 -c Debug --self-contained true --version-suffix %COMMIT%
-dotnet publish MPF.Check\MPF.Check.csproj -f net48 -r win-x86 -c Debug --self-contained true --version-suffix %COMMIT%
-dotnet publish MPF.Check\MPF.Check.csproj -f net48 -r win-x64 -c Debug --self-contained true --version-suffix %COMMIT%
 
 REM .NET Framework 4.8 Release
 echo Building .NET Framework 4.8 release
 dotnet publish MPF\MPF.csproj -f net48 -r win-x86 -c Release --self-contained true --version-suffix %COMMIT% -p:DebugType=None -p:DebugSymbols=false
 dotnet publish MPF\MPF.csproj -f net48 -r win-x64 -c Release --self-contained true --version-suffix %COMMIT% -p:DebugType=None -p:DebugSymbols=false
-dotnet publish MPF.Check\MPF.Check.csproj -f net48 -r win-x86 -c Release --self-contained true --version-suffix %COMMIT% -p:DebugType=None -p:DebugSymbols=false
-dotnet publish MPF.Check\MPF.Check.csproj -f net48 -r win-x64 -c Release --self-contained true --version-suffix %COMMIT% -p:DebugType=None -p:DebugSymbols=false
 
 REM Create MPF Debug archives
 cd %BUILD_FOLDER%\MPF\bin\Debug\net48\win-x86\publish\
@@ -45,15 +41,3 @@ cd %BUILD_FOLDER%\MPF\bin\Release\net48\win-x86\publish\
 7z a -tzip %BUILD_FOLDER%\MPF_win-x86_release.zip *
 cd %BUILD_FOLDER%\MPF\bin\Release\net48\win-x64\publish\
 7z a -tzip %BUILD_FOLDER%\MPF_win-x64_release.zip *
-
-REM Create MPF.Check Debug archives
-cd %BUILD_FOLDER%\MPF.Check\bin\Debug\net48\win-x86\publish\
-7z a -tzip %BUILD_FOLDER%\MPF.Check_win-x86_debug.zip *
-cd %BUILD_FOLDER%\MPF.Check\bin\Debug\net48\win-x64\publish\
-7z a -tzip %BUILD_FOLDER%\MPF.Check_win-x64_debug.zip *
-
-REM Create MPF.Check Release archives
-cd %BUILD_FOLDER%\MPF.Check\bin\Release\net48\win-x86\publish\
-7z a -tzip %BUILD_FOLDER%\MPF.Check_win-x86_release.zip *
-cd %BUILD_FOLDER%\MPF.Check\bin\Release\net48\win-x64\publish\
-7z a -tzip %BUILD_FOLDER%\MPF.Check_win-x64_release.zip *

@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MPF.Check\MPF.Check.csproj" />
     <ProjectReference Include="..\MPF.Core\MPF.Core.csproj" />
     <ProjectReference Include="..\MPF.UI.Core\MPF.UI.Core.csproj" />
   </ItemGroup>
