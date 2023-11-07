@@ -1,5 +1,7 @@
 # MPF Legacy
 
+[![Build status](https://ci.appveyor.com/api/projects/status/gb3a78crf74yu1qc?svg=true)](https://ci.appveyor.com/project/Deterous/mpf-legacy/build/artifacts)
+
 A fork of [Media Preservation Frontend (MPF)](https://github.com/SabreTools/MPF) to enable legacy Windows users to continue to contribute to [redump.org](http://redump.org/)
 
 MPF Legacy will only be updated with bug fixes and new versions of DIC, Aaru, and Redumper. If you **need** any new features from [MPF 3](https://github.com/SabreTools/MPF) and for whatever reason **cannot** upgrade Windows, create a PR or an issue.

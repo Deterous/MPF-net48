@@ -29,7 +29,7 @@ after_build:
 
 # Aaru
 - ps: appveyor DownloadFile https://github.com/aaru-dps/Aaru/releases/download/v5.3.2/aaru-5.3.2_windows_x86.zip
-- 7z x aaru-5.3.2_windows_x64.zip -oMPF\bin\Debug\net48\win-x86\publish\Programs\Aaru *
+- 7z x aaru-5.3.2_windows_x86.zip -oMPF\bin\Debug\net48\win-x86\publish\Programs\Aaru *
 - ps: appveyor DownloadFile https://github.com/aaru-dps/Aaru/releases/download/v5.3.2/aaru-5.3.2_windows_x64.zip
 - 7z x aaru-5.3.2_windows_x64.zip -oMPF\bin\Debug\net48\win-x64\publish\Programs\Aaru *
 
@@ -40,7 +40,7 @@ after_build:
 
 # Redumper
 - ps: appveyor DownloadFile https://github.com/superg/redumper/releases/download/build_247/redumper-2023.11.01_build247-win32.zip
-- 7z e redumper-2023.11.01_build247-win64.zip -oMPF\bin\Debug\net48\win-x86\publish\Programs\Redumper redumper-2023.11.01_build247-win32\bin\*
+- 7z e redumper-2023.11.01_build247-win32.zip -oMPF\bin\Debug\net48\win-x86\publish\Programs\Redumper redumper-2023.11.01_build247-win32\bin\*
 - ps: appveyor DownloadFile https://github.com/superg/redumper/releases/download/build_247/redumper-2023.11.01_build247-win64.zip
 - 7z e redumper-2023.11.01_build247-win64.zip -oMPF\bin\Debug\net48\win-x64\publish\Programs\Redumper redumper-2023.11.01_build247-win64\bin\*
 
