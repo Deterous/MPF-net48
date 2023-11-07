@@ -16,10 +16,6 @@ build_script:
   - dotnet publish MPF\MPF.csproj -f net48 -r win-x86 -c Debug --self-contained true --version-suffix %APPVEYOR_REPO_COMMIT%
   - dotnet publish MPF\MPF.csproj -f net48 -r win-x64 -c Debug --self-contained true --version-suffix %APPVEYOR_REPO_COMMIT%
 
-  # .NET Framework 4.8 Release
-  - dotnet publish MPF\MPF.csproj -f net48 -r win-x86 -c Release --self-contained true --version-suffix %APPVEYOR_REPO_COMMIT% -p:DebugType=None -p:DebugSymbols=false
-  - dotnet publish MPF\MPF.csproj -f net48 -r win-x64 -c Release --self-contained true --version-suffix %APPVEYOR_REPO_COMMIT% -p:DebugType=None -p:DebugSymbols=false
-
 # post-build step
 after_build:
 
@@ -30,9 +26,9 @@ after_build:
 - 7z x aaru-5.3.2_windows_x64.zip -oMPF\bin\Debug\net48\win-x64\publish\Programs\Aaru *
 
 # DiscImageCreator
-- ps: appveyor DownloadFile https://github.com/saramibreak/DiscImageCreator/files/11660558/DiscImageCreator_20230606.zip
-- 7z e DiscImageCreator_20230606.zip -oMPF\bin\Debug\net48\win-x86\publish\Programs\Creator Release_ANSI\*
-- 7z e DiscImageCreator_20230606.zip -oMPF\bin\Debug\net48\win-x64\publish\Programs\Creator Release_ANSI\*
+- ps: appveyor DownloadFile https://github.com/saramibreak/DiscImageCreator/files/12565304/DiscImageCreator_20230909.zip
+- 7z e DiscImageCreator_20230909.zip -oMPF\bin\Debug\net48\win-x86\publish\Programs\Creator Release_ANSI\*
+- 7z e DiscImageCreator_20230909.zip -oMPF\bin\Debug\net48\win-x64\publish\Programs\Creator Release_ANSI\*
 
 # Redumper
 - ps: appveyor DownloadFile https://github.com/superg/redumper/releases/download/build_247/redumper-2023.11.01_build247-win32.zip
@@ -42,9 +38,9 @@ after_build:
 
 # Create MPF Debug archives
 - cd %APPVEYOR_BUILD_FOLDER%\MPF\bin\Debug\net48\win-x86\publish\
-- 7z a -tzip %APPVEYOR_BUILD_FOLDER%\MPF_%APPVEYOR_BUILD_NUMBER%_win-x86_debug.zip *
+- 7z a -tzip %APPVEYOR_BUILD_FOLDER%\MPF-Legacy_%APPVEYOR_BUILD_NUMBER%_win-x86_debug.zip *
 - cd %APPVEYOR_BUILD_FOLDER%\MPF\bin\Debug\net48\win-x64\publish\
-- 7z a -tzip %APPVEYOR_BUILD_FOLDER%\MPF_%APPVEYOR_BUILD_NUMBER%_win-x64_debug.zip *
+- 7z a -tzip %APPVEYOR_BUILD_FOLDER%\MPF-Legacy_%APPVEYOR_BUILD_NUMBER%_win-x64_debug.zip *
 
 # artifact linking
 artifacts:
